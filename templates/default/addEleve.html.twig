@@ -1,0 +1,17 @@
+{%extends 'base.html.twig'%}
+{% block body %}   
+    <div class="container">
+        {% if app.user %}
+            {% if app.user.role is same as('directeur') %}
+                <h2 class="page-header">Ajouter Un eleve</h2>
+                {{form_start(form)}}
+                {{form_widget(form)}}
+                {{form_end(form)}}
+            {% else %}            
+            <a href="/" class="btn btn-outline-primary">Retour</a>    
+            {% endif %}
+        {% else %}            
+            <a href="/" class="btn btn-outline-primary">Retour</a> 
+        {% endif %}
+    </div>
+{% endblock %}

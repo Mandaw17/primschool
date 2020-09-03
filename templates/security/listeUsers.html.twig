@@ -1,0 +1,34 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+    {% if app.user %}
+        {% if app.user.role is same as('directeur') %}
+            <h2>Les Utilisateurs</h2>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Username</th>
+                        <th>Role</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for user in users %}
+                        <tr>
+                            <td>{{user.id}}</td>
+                            <td>{{user.login}}</td>
+                            <td>{{user.role}}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+    {% else %}
+        <center>
+            <h3>Vous n'etes pas connecté </h3>
+            <a href="/connexion" class="btn btn-primary">Connection</a>
+        </center>    
+    {% endif %}
+      
+
+{% endblock %}

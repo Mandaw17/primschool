@@ -1,0 +1,78 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+    {% if not app.user %}
+        <center>
+            <h1>Bienvenu </h1>
+            <h2>Sur la plateforme de l'ecole ...</h2>
+            <h3>Si vous souhaitez acceder aux informations authentifiez-vous <a href="/connexion" class="btn btn-primary">ici</a></h3>
+        </center>
+    {% else %}
+         {% if app.user.role is same as('directeur') %}
+            <center><h1>Voici vos Rendez-vous et Demandes de Rendez-vous</h1>
+            <h2>Rendez-vous fixés</h2></center>
+            <div class="container">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Heure</th>
+                            <th>Eleve</th>
+                            <th>Classe</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for rv in rvs %}
+                            <tr>
+                                <td>{{rv.date.format('Y-m-d')}}</td>
+                                <td>{{rv.heure.format('H:m')}}</td>
+                                <td>{{rv.eleve.nom}} {{rv.eleve.prenom}}</td>
+                                <td>{{rv.eleve.classeIn.nom}}</td>
+                            </tr>              
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <hr>
+            <center><h2>Demandes</h2></center>
+            <div class="container">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Nom eleve</th>
+                            <th>Prenom eleve</th>
+                            <th>Classe</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for demande in demandes %}
+                                <tr>
+                                    <td>{{demande.eleve.id}}</td>
+                                    <td>{{demande.eleve.nom}}</td>
+                                    <td>{{demande.eleve.prenom}}</td>
+                                    <td>{{demande.eleve.classeIn.nom}}</td>
+                                    <td><a href="/addRv/{{demande.eleve.id}}" class="btn btn-success">Accepter</a></td>
+                                </tr>               
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            {% if app.user.role is same as('parent') %}
+                <center><h1>Salut cher parent !</h1>
+                <h1>Vous pouvez consulter le profil de votre enfant</h1>
+                <a href="profilsEleves/{{app.user.id}}" class="btn btn-primary">Ici</a></center>
+            {% else %}
+                {% if app.user.role is same as('enseignant') %}
+                    <center><h1>Salut cher enseignant !</h1>
+                    <h1>Vous pouvez consulter votre profil </h1>
+                    <a href="profilsEnseignants/{{(app.user.id)- 100000000}}" class="btn btn-primary">Ici</a></center>
+                {% endif %}
+                    
+            {% endif %}
+            
+        {% endif %}    
+    {% endif %}
+{% endblock %}

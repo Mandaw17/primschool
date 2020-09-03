@@ -1,0 +1,39 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+      {% if app.user %}
+          <h2>Controles</h2>
+          <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Matiere </th>
+              <th>Date</th>
+              <th>Duree</th>
+            </tr>
+          </thead>
+          <tbody>
+          {% for controle in controles %}
+              {% if controle.classe.nom is same as(classe.nom) %}
+                    <tr>
+                        <td scope="row">{{controle.id}}</td>
+                        <td scope="row">{{controle.matiere.nom}}</td>
+                        <td scope="row">{{controle.datecontrol.format('Y-m-d')}}</td>
+                        <td scope="row">{{controle.duree.format('H:i:s')}}</td>
+                    </tr>
+
+              {% endif %}
+              
+          {% endfor %} 
+          </tbody>
+          {% if app.user.role is same as("directeur") %}
+            <tr><a href="/addControle" class="btn btn-outline-success my-2 my-sm-0">Organiser Controle</a></tr> 
+          {% endif %}
+          
+        </table>
+        <a href="/classe/{{classe.id}}" class="btn btn-outline-success my-2 my-sm-0">Retour</a>
+    {% else %}
+      <a href="/" class="btn btn-outline-primary">Retour</a>    
+    {% endif %}
+      
+{% endblock %}

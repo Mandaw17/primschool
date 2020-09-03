@@ -1,0 +1,47 @@
+{%extends 'base.html.twig'%}
+{% block body %}
+    {% if app.user %}
+        {% if app.user.role is same as('parent') %}
+            {% if app.user.id is same as(eleve.id) %}
+                <a href="/classe/{{eleve.classeIn.id}}" class="btn btn-outline-success my-2 my-sm-0">classe</a>
+                <h2>Profil de l'eleve identifie {{eleve.id}}</h2>
+                <b>Nom :</b>{{eleve.nom}}<br>
+                <b>Prenom :</b>{{eleve.prenom}}<br>
+                <b>Date de Naissance :</b>{{eleve.dateNaiss | date('d-m-Y')}}<br>
+                <b>Lieu de Naissance :</b>{{eleve.lieuNaiss}}<br>
+                <b>Sexe : {{eleve.sexe}}</b>
+                <hr>
+                <a href="/bulletin/{{eleve.id}}" class="btn btn-outline-primary my-2 my-lg-0" style="margin-top=15px;">Bulletin</a><br>
+                <a href="/plainte/{{eleve.id}}" class="btn btn-outline-primary my-2 my-lg-0" style="margin-top=15px;">Plaintes</a><br>
+                {% if app.user.role is same as('directeur') %}
+                    <a href="/addRv/{{eleve.id}}" class="btn btn-outline-primary my-2 my-lg-0" style="margin-top=15px;">Convoquer</a><br>
+                {% endif %}            
+                {% if app.user.role is same as('parent') %}
+                    <a href="/rendezvous/{{eleve.id}}" class="btn btn-outline-primary my-2 my-lg-0" style="margin-top=15px;">Rendez-Vous</a>
+                {% endif %}
+            {% endif %}            
+        {% else %}
+            <a href="/classe/{{eleve.classeIn.id}}" class="btn btn-outline-success my-2 my-sm-0">classe</a>
+            <h2>Profil de l'eleve identifie {{eleve.id}}</h2>
+            <b>Nom :</b>{{eleve.nom}}<br>
+            <b>Prenom :</b>{{eleve.prenom}}<br>
+            <b>Date de Naissance :</b>{{eleve.dateNaiss | date('d-m-Y')}}<br>
+            <b>Lieu de Naissance :</b>{{eleve.lieuNaiss}}<br>
+            <b>Sexe : {{eleve.sexe}}</b>
+            <hr>
+            <a href="/bulletin/{{eleve.id}}" class="btn btn-outline-primary my-2 my-lg-0" style="margin-top=15px;">Bulletin</a><br>
+            <a href="/plainte/{{eleve.id}}" class="btn btn-outline-primary my-2 my-lg-0" style="margin-top=15px;">Plaintes</a><br>
+            {% if app.user.role is same as('directeur') %}
+                <a href="/addRv/{{eleve.id}}" class="btn btn-outline-primary my-2 my-lg-0" style="margin-top=15px;">Convoquer</a><br>
+            {% endif %}            
+            {% if app.user.role is same as('parent') %}
+                <a href="/rendezvous/{{eleve.id}}" class="btn btn-outline-primary my-2 my-lg-0" style="margin-top=15px;">Rendez-Vous</a>
+            {% endif %}
+        {% endif %}
+        
+            
+    {% else %}
+        <a href="/" class="btn btn-outline-primary">Retour</a>    
+    {% endif %}
+    
+{% endblock %}

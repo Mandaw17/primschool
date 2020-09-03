@@ -1,0 +1,17 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+    {% if app.user %}
+        {% if app.user.role is same as('directeur') %}
+            <center>
+                <h3>Vous allez supprimer la classe {{classe.nom}} {{classe.id}}<h3>
+                <h2>En êtes-vous sûr ?</h2>
+                <a href="/deleteClasse/{{classe.id}}" class="btn btn-danger">supprimer</a> <a href="/classe/{{classe.id}}" class="btn btn-success">Annuler</a>
+            </center>
+        {% else %}
+                <a href="/classe/{{classe.id}}" class="btn btn-outline-primary">Retour</a>
+        {% endif %}
+    {% else %}
+        <a href="/" class="btn btn-outline-primary">Retour</a>    
+    {% endif %}        
+{% endblock %}

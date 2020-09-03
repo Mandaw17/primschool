@@ -1,0 +1,20 @@
+{%extends 'base.html.twig'%}
+{% block body %}
+    {% if app.user %}
+        {% if app.user.role %}
+            <div class="container">
+                    <h2 class="page-header">Ajouter Un eleve</h2>
+                    <div class="form-group">
+                        {{form_start(form)}}
+                        {{form_widget(form)}}
+                        {{form_end(form)}}
+                    </div>
+            </div>
+        {% else %}
+            <a href="/" class="btn btn-outline-primary">Retour</a>
+        {% endif %}
+    {% else %}
+        <a href="/" class="btn btn-outline-primary">Retour</a>
+    {% endif %}
+    
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+    {% if app.user %}
+        <a href="/profilsEleves/{{eleve.id}}" class="btn btn-outline-primary">Retour</a>
+        <div class="container" style="background: white;">
+            <b>Nom :</b>{{eleve.nom}}<br>
+            <b>Prenom :</b>{{eleve.prenom}}<br>
+            <b>Date de Naissance :</b>{{eleve.dateNaiss | date('d-m-Y')}}<br>
+            <b>Lieu de Naissance :</b>{{eleve.lieuNaiss}}<br>
+            <b>Sexe : {{eleve.sexe}}</b>
+            <b class="align-text-top">Classe :</b> {{eleve.classeIn.nom}}
+        </div>
+        <br>
+        <div class="container">
+            <table class="table ">
+                <tr>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                {% for note in notes %}
+                    {% if note.eleve.id is same as(eleve.id) %}
+                        <tr>
+                            <td>{{note.controle.matiere.nom}}</td>
+                            <td>{{note.controle.datecontrol.format('Y-m-d')}}</td>
+                            <td>{{note.note}}</td>      
+                        </tr>
+                    {% endif %}       
+                {% endfor %}
+            </table>
+        </div>
+    {% else %}
+        <a href="/" class="btn btn-outline-primary">Retour</a>    
+    {% endif %}
+    
+{% endblock %}

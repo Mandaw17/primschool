@@ -1,0 +1,19 @@
+{%extends 'base.html.twig'%}
+{% block body %}
+    <div class="container">
+        {% if app.user %}
+            {% if app.user.role is same as('enseignant') %}
+                <div class="container">
+                    <h2 class="page-header">Modidifier Note</h2>
+                    {{form_start(formNote)}}
+                    {{form_widget(formNote)}}
+                    {{form_end(formNote)}}
+                </div>
+            {% else %}
+                <a href="/listeClasses" class="btn btn-outline-primary">Retour</a>
+            {% endif %}
+        {% else %}
+            <a href="/" class="btn btn-outline-primary"></a>    
+        {% endif %}
+    </div>
+{% endblock %}

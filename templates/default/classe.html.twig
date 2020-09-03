@@ -1,0 +1,70 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+   {% if app.user %}
+       <h2>Classe : {{classe.nom}}</h2>
+
+        <h3><a href="/planning/{{classe.id}}" class="btn btn-outline-success my-2 my-sm-0">Planning</a></h3>
+        
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Classe</th>
+              <th>Profil</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+          {% set nbEleves = 0 %}  
+            {% for eleve in eleves %}
+              {% if eleve.classeIn.nom is same as(classe.nom) %}
+              
+                <tr>
+                  <td>{{eleve.id}}</td>
+                  <td>{{eleve.prenom}}</td>
+                  <td>{{eleve.nom}}</td>
+                  <td>{{eleve.classeIn.nom}}</td>
+                  <td>{% if not app.user.role is same as('parent') %}
+                    <a href="/profilsEleves/{{eleve.id}}" class="btn btn-success my-2 my-sm-0">Voir</a>
+                  {% endif %}
+                  
+                  {% if app.user.role is same as('directeur') %}
+                    <a href="/modifierEleve/{{eleve.id}}" class="btn btn-primary my-2 my-sm-0">Modifier</a>
+                    <a href="/deleteEl/{{eleve.id}}" class="btn btn-danger my-2 my-sm-0">X</a></td>
+                  {% endif %}
+                  <td>{% if app.user.role is same as('directeur') %}
+                      <a href="/inscrire/{{eleve.id}}" class="btn btn-outline-primary">Inscrire</a>
+                  {% endif %}
+                  </td>
+                  {% if app.user.role is same as('enseignant') %}
+                    <td><a href="/noterEleve/{{eleve.id}}" class="btn btn-outline-primary my-2 my-sm-0">Noter</a></td>
+                  {% endif %}             
+                </tr>
+                {% set nbEleves = nbEleves + 1 %}
+
+              {% endif %}
+            {% endfor %}
+          </tbody>
+        </table>
+        <p><b>Nombre d'eleves : {{nbEleves}}</b></p>
+        {% if app.user.role is same as('directeur') %}
+            <a href="/addEleve" class="btn btn-outline-success my-2 my-sm-0">Ajouter Eleve</a>
+        {% endif %}    
+        <hr>
+        <h2>Matieres</h2>
+        {% for i, key in tableau %}
+          <b>{{ tableau[i].nom}}</b><br>
+        {% endfor %}
+        {% if app.user.role is same as('directeur') %}
+          <a href="/affecterMatiereClasse/{{classe.id}}" class="btn btn-outline-success my-2 my-sm-0">Ajouter Matiere</a>
+      {% endif %}
+
+   {% else %}
+     <a href="/" class="btn btn-outline-primary">Retour</a>   
+   {% endif %}
+   
+    
+{% endblock %}

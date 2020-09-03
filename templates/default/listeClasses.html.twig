@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}   
+   {% if app.user %}
+      {% if app.user.role is same as('directeur') %}
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Nom Classe</th>
+              <th>Enseignant</th>
+            </tr>
+          </thead>
+          <tbody>
+          {% for classe in classes %}
+              
+            <tr>
+              <td></td>
+              <td scope="row">{{classe.nom}}</td>
+              <td scope="row">{{classe.idEns.getNom()}}</td>
+              <td><a href="/classe/{{classe.id}}" class="btn btn-success">Voir</a>
+                  <a href="/modifierClasse/{{classe.id}}" class="btn btn-primary">Modifier</a>
+                  <a href="/deleteClasse/{{classe.id}}" class="btn btn-danger">X</a></td>
+            </tr>
+
+          {% endfor %}  
+          </tbody>
+      </table>
+      <a href="/addClasse" class="btn btn-outline-success my-2 my-sm-0">Ajouter classe</a> 
+
+    {% else %}
+      <a href="/" class="btn btn-outline-primary">Retour</a> 
+    {% endif %}
+  {% else %}
+    <a href="/" class="btn btn-outline-primary">Retour</a>
+  {% endif %}
+   
+{% endblock %}

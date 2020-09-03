@@ -1,0 +1,54 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+    {% if app.user %}
+        {% if app.user.role is same as("enseignant") %}
+                <center>
+                <h2 class="page-header">Noter l'eleve</h2>
+                <h3>{{eleve.prenom}} {{eleve.nom}} id = {{eleve.id}}</h3>
+            </center>
+            <p>
+                <b>Pour Rappel :</b><br>
+                L'eleve en question est inscrit dans la classe {{eleve.classeIn.nom}}<br>
+                Les controles pour cettes classe sont 
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Matiere </th>
+                            <th>Date</th>
+                            <th>Duree</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for controle in controles %}
+                        {% if controle.classe.nom is same as(eleve.classeIn.nom) %}
+                                <tr>
+                                    <td scope="row">{{controle.id}}</td>
+                                    <td scope="row">{{controle.matiere.nom}}</td>
+                                    <td scope="row">{{controle.datecontrol.format('Y-m-d')}}</td>
+                                    <td scope="row">{{controle.duree.format('H:i:s')}}</td>
+                                </tr>
+
+                        {% endif %}
+                        
+                    {% endfor %} 
+                    </tbody>
+                </table>
+            </p>
+            <div class="container">
+                <div class="form-group">
+                    {{form_start(formNote)}}
+                    {{form_widget(formNote)}}
+                    {{ form_widget(formNote.note, {'type':'number'}) }}
+                    {{form_end(formNote)}}
+                </div>
+            </div>
+        {% else %}
+            <a href='/classe/{{eleve.classeIn.id}}' class="btn btn-outline-primary">retour</a> 
+        {% endif %}
+    {% else %}
+        <a href="/" class="btn btn-outline-primary"></a>    
+    {% endif %}
+    
+{% endblock %}

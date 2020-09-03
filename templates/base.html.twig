@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"><link>
+        {% block stylesheets %}{% endblock %}
+    </head>
+    <body>
+    
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="/">Home</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+            {% if app.user %}
+                {% if app.user.role is same as("directeur") %}
+                    <li class="nav-item ">
+                        <a class="nav-link" href="/listeUsers">Utilisateurs<span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/listeClasses">Classes</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/enseignants" tabindex="-1" >Enseignants</a>
+                    </li>    
+                
+                {% endif %}
+            {% endif %}
+            
+            
+            
+            </ul>
+            <form class="form-inline my-2 my-lg-0">
+                {% if not app.user %}
+            
+                <li class="nav-item">
+                    <a class="nav-link my-2 my-lg-0" href="{{path('securityLogin')}}" tabindex="-1" >Connection</a>
+                </li>
+                {% else %}
+                    
+                <li class="nav-item">
+                    <a class="nav-link my-2 my-lg-0" href="{{path('securityLogout')}}" tabindex="-1" >Deconnection</a>
+                </li>
+                {% endif %}
+            </form>
+        </div>
+    </nav>
+        
+        {% block body %}{% endblock %}
+        {% block javascripts %}{% endblock %}
+    </body>
+</html>

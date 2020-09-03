@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container">
+        {% if app.user %}
+            {% if app.user.role is same as('directeur') %}
+                {% set trouv = 0 %}
+                {% for userone in users %}
+                    {% if userone.id is same as(enseignant.id) %}
+                        {% set trouv = 1 %}    
+                    {% endif %}               
+                {% endfor %}
+                {% if trouv is same as(1) %}
+                    <center>
+                        <h1>Cet enseignant est deja utilisateur</h1>
+                    </center>
+                {% else %}
+                    {{form_start(form)}}
+                    {{form_widget(form)}}
+                    <button type="submit" class="btn btn-success">inscrire</button>
+                    {{form_end(form)}}    
+                {% endif %}
+
+            {% else %}
+                <a href="/" class="btn btn-outline-primary">Retour</a>    
+            {% endif %}
+
+        {% else %}
+                <a href="/" class="btn btn-outline-primary">Retour</a>     
+        {% endif %}
+    </div>    
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+       <a href="/profilsEleves/{{eleve.id}}" class="btn btn-outline-success">Retour</a>
+       <center><h1>Programmer Rendez-Vous</h1></center>
+         {% if app.user %}
+            {% if app.user.role is same as('directeur') %}
+                <div class="container">
+                        <h2 class="page-header">Programmer Un Rendez-Vous pour le parent d'élève matriculé {{eleve.id}}</h2>
+                        <div class="form-group">
+                            {{form_start(form)}}
+                            {{form_widget(form)}}
+                            {{form_end(form)}}
+                        </div>
+                </div>
+            {% else %}
+                <a href="/" class="btn btn-outline-primary">Retour</a>
+            {% endif %}
+        {% else %}
+            <a href="/" class="btn btn-outline-primary">Retour</a>
+        {% endif %}
+{% endblock %}

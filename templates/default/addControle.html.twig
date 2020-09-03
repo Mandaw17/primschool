@@ -1,0 +1,24 @@
+{% extends "base.html.twig" %}
+
+{% block body %}   
+    <div class="container">
+        {% if app.user %}
+            {% if app.user.role is same as("directeur") %}
+                <center>
+                    <h2 class="page-header">Ajouter Un enseignant</h2>
+                </center>
+                <div class="container">
+                    <div class="form-group">
+                        {{form_start(formControle)}}
+                        {{form_widget(formControle)}}
+                        {{form_end(formControle)}}
+                    </div>
+                </div>
+            {% else %}
+                <a href="/" class="btn btn-outline-primary">Retour</a>    
+            {% endif %}
+        {% else %}
+                <a href="/" class="btn btn-outline-primary">Retour</a>     
+        {% endif %}
+    </div>
+{% endblock %}

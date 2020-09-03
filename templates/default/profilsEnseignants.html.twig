@@ -1,0 +1,17 @@
+{%extends 'base.html.twig'%}
+{% block body %}
+    {% if app.user %}
+        <br>
+        <a href="/classe/{{enseignant.classe.id}}" class="btn btn-outline-success my-2 my-sm-0">classe</a>
+        <h2>Profil de l'elevenseignant identifie {{enseignant.id}}</h2>
+        <b>Nom :</b>{{enseignant.nom}}<br>
+        <b>Prenom :</b>{{enseignant.prenom}}<br>
+        <b>Date de Naissance :</b>{{enseignant.dateNaiss | date('d-m-Y')}}<br>
+        <b>Lieu de Naissance :</b>{{enseignant.lieuNaiss}}<br>
+        <b>Sexe : {{enseignant.sexe}}</b>
+        <b>Telephone : {{enseignant.tel}}</b>
+    {% else %}
+        <a href="/" class="btn btn-outline-primary">Retour</a>
+    {% endif %}
+    
+{% endblock %}

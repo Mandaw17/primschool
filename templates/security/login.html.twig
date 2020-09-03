@@ -1,0 +1,25 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+    {% if not app.user %}
+        <h1><center>Connectez-Vous !</center></h1>
+        <div class="container">
+            <form action="{{ path('securityLogin') }}" method="post" >
+
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="login" required name="_username">
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-control" placeholder="mot de passe" required name="_password">
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-success">Connexion</button>
+                </div>
+
+            </form>
+        </div>
+    {% else %}
+        <h1>Youre already connected</h1>
+    {% endif %}
+    
+{% endblock %}

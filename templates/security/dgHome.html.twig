@@ -1,0 +1,64 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+    {% if app.user %}
+        {% if app.user.role is same as('directeur') %}
+            <center><h1>Voici vos Rendez-vous et Demandes de Rendez-vous</h1></center>
+            <h2>Rendez-vous fixés</h2>
+            <div class="container">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Heure</th>
+                            <th>Eleve</th>
+                            <th>Classe</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for rv in rvs %}
+                            <tr>
+                                <td>{{rv.date.format('Y-m-d')}}</td>
+                                <td>{{rv.heure.format('H:m')}}</td>
+                                <td>{{rv.eleve.nom}} {{rv.eleve.prenom}}</td>
+                                <td>{{rv.eleve.classeIn.nom}}</td>
+                            </tr>              
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <hr>
+            <h2>Demandes</h2>
+            <div class="container">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Nom eleve</th>
+                            <th>Prenom eleve</th>
+                            <th>Classe</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for demande in demandes %}
+                                <tr>
+                                    <td>{{demande.eleve.id}}</td>
+                                    <td>{{demande.eleve.nom}}</td>
+                                    <td>{{demande.eleve.prenom}}</td>
+                                    <td>{{demande.eleve.classeIn.nom}}</td>
+                                    <td><a href="/addRv/{{demande.eleve.id}}" class="btn btn-success">Accepter</a></td>
+                                </tr>               
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <a href="/" class="btn btn-outline-primary">Retour</a>
+        {% endif %}
+
+    {% else %}
+         <a href="/" class="btn btn-outline-primary">Retour</a>       
+    {% endif %}
+    
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+    <div class="container">
+        {% if app.user %}
+            {% if app.user.role is same as('directeur') %}
+                <div>
+                    <h2 class="page-header">Affecter Matiere</h2>
+                    {{form_start(formNote)}}
+                    {{form_widget(formNote)}}
+                    {{form_end(formNote)}}
+                </div>
+            {% else %}
+                <a href="/classe/{{classe.id}}" class=class="btn btn-ouline-primary">Retour</a>
+            {% endif %}
+        {% else %}
+            <a href="/" class="btn btn-ouline-primary">Retour</a>
+        {% endif %}
+    </div>
+{% endblock %}
